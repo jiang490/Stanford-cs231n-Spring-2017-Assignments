@@ -1,2 +1,2 @@
-Details about this assignment can be found [on the course webpage](http://cs231n.github.io/), under Assignment #1 of Spring 2017.
 # Stanford-cs231n-Spring-2017-Assignments
+Completed assignments for the course. Some highlights: use GA to fine-tune the hyperparameters of the neural network, achieving around 5% improvement over the best model mentioned in the assignment1.
