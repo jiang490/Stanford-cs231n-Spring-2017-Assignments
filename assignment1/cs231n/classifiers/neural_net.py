@@ -79,7 +79,7 @@ class TwoLayerNet(object):
         # include the bias term into the weight and input
         output_layer_1 = np.dot(X, W1) + b1
         relu_mask = np.zeros_like(output_layer_1)
-        relu_mask[output_layer_1 > 0] = 1
+        relu_mask[output_layer_1 > -1e-9] = 1
         output_layer_relu = output_layer_1 * relu_mask
         scores = np.dot(output_layer_relu, W2) + b2
         #############################################################################
@@ -128,7 +128,7 @@ class TwoLayerNet(object):
         grads["b2"] = grad_b2
 
         grad_relu_mask = np.zeros_like(output_layer_relu)
-        grad_relu_mask[output_layer_1 > 0] = 1
+        grad_relu_mask[output_layer_1 > -1e-9] = 1
         grad_relu = grad_relu_mask * np.dot(grad_scores, W2.T)
 
         grad_W1 = X.T.dot(grad_relu) + 2 * reg * W1
@@ -243,13 +243,7 @@ class TwoLayerNet(object):
         ###########################################################################
         # TODO: Implement this function; it should be VERY simple!                #
         ###########################################################################
-        output_layer_1 = X.dot(self.params["W1"]) + self.params["b1"]
-        relu_mask = np.zeros_like(output_layer_1)
-        relu_mask[output_layer_1 > 0] = 1
-        output_layer_relu = relu_mask * output_layer_1
-        output_layer_2 = output_layer_relu.dot(self.params["W2"]) + \
-            self.params["b2"]
-        y_pred = np.argmax(output_layer_2, axis=1)
+        y_pred = np.argmax(self.loss(X), axis=1)
         ###########################################################################
         #                              END OF YOUR CODE                           #
         ###########################################################################
